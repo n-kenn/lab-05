@@ -10,21 +10,25 @@
       exit();
     }
     $inTable = false;
-    $query = "SELECT Username From Users Order by ID Asc";
+
+    $newUsername = $mysqli->real_escape_string($_POST['userSelect']);
+    $query = "SELECT Username,Text From Posts where Username = '$newUsername' Order by ID Asc";
+
     echo "<table style='border: 1px solid black;'><tr>";
-    echo "<th style='border: 1px solid black;'>Username<th></tr>";
+    echo "<th style='border: 1px solid black;'>Posts</th></tr>";
     if ($mysqli->query($query))
     {
 
       foreach($mysqli->query($query) as $row)
       {
-        echo "<tr><td style='border: 1px solid black;'>".$row['Username']."</td></tr>";
+        echo "<tr><td style='border: 1px solid black;'>".$row['Text']."</td></tr>";
       }
 
     }
     echo "</table>";
+
     $mysqli->close();
      ?>
-      <a href="AdminHome.html">Click here to return to the admin home page</a>
+     <a href="AdminHome.html">Click here to return to the admin home page</a>
   </body>
 </html>
